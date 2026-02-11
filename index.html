@@ -2,88 +2,270 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>MindOracle</title>
-
+<title>MindOracle - Dark Magic</title>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Noto+Sans+Tamil:wght@400;700&display=swap');
+  
   body {
     margin: 0;
-    font-family: "Georgia", serif;
-    background: linear-gradient(135deg, #b7d7e8, #fff1a8);
+    font-family: "Cinzel", serif;
+    background: #000;
+    color: #e0e0e0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-  }
-
-  .frame {
-    width: 340px;
-    background: #fdfcf7;
-    border-radius: 18px;
-    padding: 28px;
-    box-shadow:
-      0 10px 30px rgba(0,0,0,0.2),
-      inset 0 0 30px rgba(255,255,255,0.7);
-    text-align: center;
+    overflow: hidden;
     position: relative;
   }
 
-  .frame::after {
+  /* Dark mystical background */
+  body::before {
     content: "";
     position: absolute;
-    inset: 0;
-    border-radius: 18px;
-    box-shadow: inset 0 0 40px rgba(0,0,0,0.12);
-    pointer-events: none;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+      radial-gradient(circle at 20% 30%, #1a0033 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, #330011 0%, transparent 50%),
+      radial-gradient(circle at 40% 80%, #001a33 0%, transparent 50%),
+      linear-gradient(to bottom, #000000, #1a0a1a);
+    z-index: -2;
+  }
+
+  /* Floating particles container */
+  #particles-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.7;
+  }
+
+  /* Enhanced frame with mystical elements */
+  .frame-container {
+    position: relative;
+    width: 450px;
+    height: 550px;
+    perspective: 1000px;
+  }
+
+  .frame {
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 5, 15, 0.85);
+    border: 1px solid #4a0080;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow:
+      0 0 30px rgba(138, 43, 226, 0.5),
+      inset 0 0 20px rgba(0, 0, 0, 0.7);
+    text-align: center;
+    position: relative;
+    backdrop-filter: blur(5px);
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease;
+  }
+
+  /* Mystical corner decorations */
+  .corner {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border: 2px solid #9c27b0;
+    opacity: 0.8;
+  }
+
+  .corner-tl {
+    top: 10px;
+    left: 10px;
+    border-right: none;
+    border-bottom: none;
+    border-top-left-radius: 10px;
+  }
+
+  .corner-tr {
+    top: 10px;
+    right: 10px;
+    border-left: none;
+    border-bottom: none;
+    border-top-right-radius: 10px;
+  }
+
+  .corner-bl {
+    bottom: 10px;
+    left: 10px;
+    border-right: none;
+    border-top: none;
+    border-bottom-left-radius: 10px;
+  }
+
+  .corner-br {
+    bottom: 10px;
+    right: 10px;
+    border-left: none;
+    border-top: none;
+    border-bottom-right-radius: 10px;
+  }
+
+  /* Mystical symbols */
+  .symbol {
+    position: absolute;
+    font-size: 20px;
+    color: #9c27b0;
+    opacity: 0.6;
+    animation: pulse 3s infinite alternate;
+  }
+
+  .symbol1 {
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .symbol2 {
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .symbol3 {
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%) rotate(90deg);
+  }
+
+  .symbol4 {
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%) rotate(-90deg);
+  }
+
+  /* Glowing border effect */
+  .frame::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #6a0dad, #8b0000, #191970, #6a0dad);
+    border-radius: 20px;
+    z-index: -1;
+    opacity: 0.7;
+    animation: borderGlow 8s infinite alternate;
+  }
+
+  @keyframes borderGlow {
+    0% { opacity: 0.5; filter: blur(5px); }
+    100% { opacity: 0.8; filter: blur(2px); }
+  }
+
+  @keyframes pulse {
+    0% { opacity: 0.4; }
+    100% { opacity: 0.8; }
+  }
+
+  /* Crystal ball element */
+  .crystal-ball {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.3), rgba(138, 43, 226, 0.2));
+    box-shadow: 
+      0 0 20px rgba(138, 43, 226, 0.7),
+      inset 0 0 20px rgba(255, 255, 255, 0.1);
+    animation: float 4s infinite ease-in-out;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-10px); }
   }
 
   h1 {
-    margin: 0 0 10px;
-    font-size: 26px;
-    color: #2f4f6f;
-    letter-spacing: 1px;
+    margin: 20px 0 10px;
+    font-size: 32px;
+    color: #d1c4e9;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px #9c27b0;
   }
 
   .subtitle {
-    font-size: 13px;
-    color: #6a6a6a;
-    margin-bottom: 18px;
+    font-size: 14px;
+    color: #9c27b0;
+    margin-bottom: 25px;
     font-style: italic;
+  }
+
+  /* Language switcher */
+  .lang-switcher {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid #6a0dad;
+    border-radius: 20px;
+    padding: 5px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    color: #d1c4e9;
+    transition: all 0.3s ease;
+    z-index: 10;
+  }
+
+  .lang-switcher:hover {
+    background: rgba(106, 13, 173, 0.3);
+    box-shadow: 0 0 10px #6a0dad;
   }
 
   .step {
     display: none;
-    font-size: 16px;
-    color: #333;
-    line-height: 1.5;
+    font-size: 18px;
+    color: #e0e0e0;
+    line-height: 1.6;
+    padding: 20px 0;
   }
 
   .step strong {
-    color: #2f4f6f;
+    color: #bb86fc;
+    text-shadow: 0 0 5px #bb86fc;
   }
 
   button {
-    margin-top: 16px;
-    background: #f6e27a;
-    border: none;
-    padding: 10px 22px;
+    margin-top: 20px;
+    background: linear-gradient(45deg, #6a0dad, #4a0080);
+    border: 1px solid #9c27b0;
+    padding: 12px 25px;
     border-radius: 30px;
-    font-size: 14px;
+    font-size: 16px;
     cursor: pointer;
-    color: #2f4f6f;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    transition: all 0.2s ease;
+    color: #e0e0e0;
+    box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4);
+    transition: all 0.3s ease;
+    font-family: "Cinzel", serif;
   }
 
   button:hover {
-    transform: translateY(-1px);
-    background: #f2d95c;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(138, 43, 226, 0.6);
+    background: linear-gradient(45deg, #7a1dad, #5a0090);
   }
 
   .reveal {
-    font-size: 30px;
-    color: #b22222;
-    margin-top: 15px;
-    text-shadow: 0 0 8px rgba(178,34,34,0.4);
+    font-size: 32px;
+    color: #e91e63;
+    margin-top: 20px;
+    text-shadow: 0 0 15px rgba(233, 30, 99, 0.7);
+    animation: pulse 2s infinite;
   }
 
   .fade {
@@ -94,66 +276,535 @@
     from { opacity: 0; transform: scale(0.95); }
     to { opacity: 1; transform: scale(1); }
   }
+
+  /* Tamil font styling */
+  .tamil {
+    font-family: 'Noto Sans Tamil', sans-serif;
+  }
+
+  /* 10 MAGICAL ELEMENTS */
+
+  /* 1. Floating Runes */
+  .rune {
+    position: absolute;
+    font-size: 24px;
+    color: #9c27b0;
+    opacity: 0.7;
+    animation: floatRune 15s infinite ease-in-out;
+    text-shadow: 0 0 10px #9c27b0;
+  }
+
+  .rune1 { top: 10%; left: 5%; animation-delay: 0s; }
+  .rune2 { top: 20%; right: 8%; animation-delay: 2s; }
+  .rune3 { bottom: 15%; left: 7%; animation-delay: 4s; }
+  .rune4 { bottom: 25%; right: 6%; animation-delay: 6s; }
+
+  @keyframes floatRune {
+    0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
+    50% { transform: translateY(-20px) rotate(180deg); opacity: 0.3; }
+  }
+
+  /* 2. Magical Sparkles */
+  .sparkle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 10px white;
+    animation: sparkle 3s infinite;
+  }
+
+  .sparkle1 { top: 15%; left: 20%; animation-delay: 0s; }
+  .sparkle2 { top: 30%; right: 25%; animation-delay: 0.5s; }
+  .sparkle3 { bottom: 20%; left: 30%; animation-delay: 1s; }
+  .sparkle4 { top: 60%; right: 15%; animation-delay: 1.5s; }
+  .sparkle5 { bottom: 40%; right: 35%; animation-delay: 2s; }
+
+  @keyframes sparkle {
+    0%, 100% { opacity: 0; transform: scale(0); }
+    50% { opacity: 1; transform: scale(1); }
+  }
+
+  /* 3. Crystal Shards */
+  .crystal-shard {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 20px solid rgba(138, 43, 226, 0.6);
+    filter: drop-shadow(0 0 5px #9c27b0);
+    animation: rotateShard 20s infinite linear;
+  }
+
+  .shard1 { top: 12%; left: 15%; animation-delay: 0s; }
+  .shard2 { top: 70%; right: 12%; animation-delay: 5s; }
+  .shard3 { bottom: 18%; left: 18%; animation-delay: 10s; }
+
+  @keyframes rotateShard {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  /* 4. Mystical Orbs */
+  .mystical-orb {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(233, 30, 99, 0.8), transparent);
+    box-shadow: 0 0 20px rgba(233, 30, 99, 0.6);
+    animation: orbPulse 4s infinite alternate;
+  }
+
+  .orb1 { top: 25%; left: 10%; animation-delay: 0s; }
+  .orb2 { top: 45%; right: 8%; animation-delay: 1s; }
+  .orb3 { bottom: 30%; left: 12%; animation-delay: 2s; }
+
+  @keyframes orbPulse {
+    0% { transform: scale(0.8); opacity: 0.5; }
+    100% { transform: scale(1.2); opacity: 0.9; }
+  }
+
+  /* 5. Energy Trails */
+  .energy-trail {
+    position: absolute;
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #9c27b0, transparent);
+    opacity: 0.6;
+    animation: moveTrail 8s infinite linear;
+  }
+
+  .trail1 { top: 20%; left: -60px; animation-delay: 0s; }
+  .trail2 { top: 50%; left: -60px; animation-delay: 2s; }
+  .trail3 { top: 80%; left: -60px; animation-delay: 4s; }
+
+  @keyframes moveTrail {
+    0% { left: -60px; }
+    100% { left: 100%; }
+  }
+
+  /* 6. Pentagrams */
+  .pentagram {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    font-size: 30px;
+    color: #6a0dad;
+    opacity: 0.5;
+    animation: pentagramRotate 25s infinite linear;
+  }
+
+  .pentagram1 { top: 15%; left: 25%; animation-delay: 0s; }
+  .pentagram2 { bottom: 20%; right: 20%; animation-delay: 10s; }
+
+  @keyframes pentagramRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  /* 7. Magical Sigils */
+  .sigil {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    border: 2px solid #e91e63;
+    border-radius: 50%;
+    opacity: 0.4;
+    animation: sigilPulse 6s infinite alternate;
+  }
+
+  .sigil::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 15px;
+    height: 15px;
+    background: transparent;
+    border: 1px solid #e91e63;
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  .sigil1 { top: 30%; right: 15%; animation-delay: 0s; }
+  .sigil2 { bottom: 35%; left: 15%; animation-delay: 3s; }
+
+  @keyframes sigilPulse {
+    0% { transform: scale(0.8); opacity: 0.2; }
+    100% { transform: scale(1.1); opacity: 0.6; }
+  }
+
+  /* 8. Floating Candles */
+  .candle {
+    position: absolute;
+    width: 12px;
+    height: 30px;
+    background: linear-gradient(to bottom, #f5deb3, #8b4513);
+    border-radius: 2px;
+    opacity: 0.7;
+  }
+
+  .candle::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 10px;
+    background: radial-gradient(circle, #ffff99, #ff6600);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    animation: flicker 1s infinite alternate;
+  }
+
+  .candle1 { top: 18%; left: 22%; animation-delay: 0s; }
+  .candle2 { top: 65%; right: 18%; animation-delay: 0.5s; }
+  .candle3 { bottom: 22%; left: 28%; animation-delay: 1s; }
+
+  @keyframes flicker {
+    0% { transform: translateX(-50%) scale(1); opacity: 0.8; }
+    100% { transform: translateX(-50%) scale(1.1); opacity: 1; }
+  }
+
+  /* 9. Spell Books */
+  .spell-book {
+    position: absolute;
+    width: 30px;
+    height: 20px;
+    background: linear-gradient(135deg, #4a0080, #1a0033);
+    border: 1px solid #9c27b0;
+    border-radius: 2px;
+    opacity: 0.6;
+    animation: bookFloat 12s infinite ease-in-out;
+  }
+
+  .spell-book::before {
+    content: "☽";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #e0e0e0;
+    font-size: 12px;
+  }
+
+  .book1 { top: 40%; left: 8%; animation-delay: 0s; }
+  .book2 { top: 25%; right: 10%; animation-delay: 4s; }
+
+  @keyframes bookFloat {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-15px) rotate(5deg); }
+  }
+
+  /* 10. Crystal Formations */
+  .crystal-formation {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 30px solid rgba(155, 39, 176, 0.4);
+    filter: drop-shadow(0 0 8px #9c27b0);
+    animation: crystalGlow 7s infinite alternate;
+  }
+
+  .crystal-formation::before {
+    content: "";
+    position: absolute;
+    top: 15px;
+    left: -10px;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 20px solid rgba(155, 39, 176, 0.6);
+  }
+
+  .crystal1 { top: 55%; left: 5%; animation-delay: 0s; }
+  .crystal2 { bottom: 15%; right: 7%; animation-delay: 3s; }
+
+  @keyframes crystalGlow {
+    0% { opacity: 0.3; filter: drop-shadow(0 0 5px #9c27b0); }
+    100% { opacity: 0.7; filter: drop-shadow(0 0 15px #9c27b0); }
+  }
 </style>
 </head>
 
 <body>
+  <!-- 10 MAGICAL ELEMENTS -->
+  
+  <!-- 1. Floating Runes -->
+  <div class="rune rune1">ᚠ</div>
+  <div class="rune rune2">ᚢ</div>
+  <div class="rune rune3">ᚦ</div>
+  <div class="rune rune4">ᚨ</div>
+  
+  <!-- 2. Magical Sparkles -->
+  <div class="sparkle sparkle1"></div>
+  <div class="sparkle sparkle2"></div>
+  <div class="sparkle sparkle3"></div>
+  <div class="sparkle sparkle4"></div>
+  <div class="sparkle sparkle5"></div>
+  
+  <!-- 3. Crystal Shards -->
+  <div class="crystal-shard shard1"></div>
+  <div class="crystal-shard shard2"></div>
+  <div class="crystal-shard shard3"></div>
+  
+  <!-- 4. Mystical Orbs -->
+  <div class="mystical-orb orb1"></div>
+  <div class="mystical-orb orb2"></div>
+  <div class="mystical-orb orb3"></div>
+  
+  <!-- 5. Energy Trails -->
+  <div class="energy-trail trail1"></div>
+  <div class="energy-trail trail2"></div>
+  <div class="energy-trail trail3"></div>
+  
+  <!-- 6. Pentagrams -->
+  <div class="pentagram pentagram1">⛤</div>
+  <div class="pentagram pentagram2">⛥</div>
+  
+  <!-- 7. Magical Sigils -->
+  <div class="sigil sigil1"></div>
+  <div class="sigil sigil2"></div>
+  
+  <!-- 8. Floating Candles -->
+  <div class="candle candle1"></div>
+  <div class="candle candle2"></div>
+  <div class="candle candle3"></div>
+  
+  <!-- 9. Spell Books -->
+  <div class="spell-book book1"></div>
+  <div class="spell-book book2"></div>
+  
+  <!-- 10. Crystal Formations -->
+  <div class="crystal-formation crystal1"></div>
+  <div class="crystal-formation crystal2"></div>
+  
+  <!-- Canvas for particle effects -->
+  <canvas id="particles-canvas"></canvas>
 
-<div class="frame">
-  <h1>MindOracle</h1>
-  <div class="subtitle">“Something is watching your thoughts…”</div>
+<div class="frame-container">
+  <div class="frame">
+    <!-- Mystical corner decorations -->
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div>
+    <div class="corner corner-br"></div>
+    
+    <!-- Mystical symbols -->
+    <div class="symbol symbol1">✦</div>
+    <div class="symbol symbol2">✧</div>
+    <div class="symbol symbol3">✦</div>
+    <div class="symbol symbol4">✧</div>
+    
+    <!-- Crystal ball -->
+    <div class="crystal-ball"></div>
+    
+    <!-- Language switcher -->
+    <div class="lang-switcher" onclick="toggleLanguage()">
+      <span id="lang-text">EN/தமிழ்</span>
+    </div>
+    
+    <h1 id="title">MindOracle</h1>
+    <div class="subtitle" id="subtitle">"Something is watching your thoughts..."</div>
 
-  <div id="step1" class="step fade" style="display:block;">
-    Think of a number between <strong>1 and 10</strong>.  
-    Hold it quietly in your mind.
-    <br>
-    <button onclick="next(2)">Continue</button>
+    <div id="step1" class="step fade" style="display:block;">
+      <span id="step1-text">Think of a number between <strong>1 and 10</strong>.  
+      Hold it quietly in your mind.</span>
+      <br>
+      <button id="step1-btn" onclick="next(2)">Continue</button>
+    </div>
+
+    <div id="step2" class="step fade">
+      <span id="step2-text">Multiply your number by <strong>2</strong>.</span>
+      <br>
+      <button id="step2-btn" onclick="next(3)">Continue</button>
+    </div>
+
+    <div id="step3" class="step fade">
+      <span id="step3-text">Now add <strong>10</strong> to the result.</span>
+      <br>
+      <button id="step3-btn" onclick="next(4)">Continue</button>
+    </div>
+
+    <div id="step4" class="step fade">
+      <span id="step4-text">Divide the total by <strong>2</strong>.</span>
+      <br>
+      <button id="step4-btn" onclick="next(5)">Continue</button>
+    </div>
+
+    <div id="step5" class="step fade">
+      <span id="step5-text">Subtract the number you first thought of.</span>
+      <br>
+      <button id="reveal-btn" onclick="reveal()">Reveal</button>
+    </div>
+
+    <div id="result" class="step reveal fade"></div>
   </div>
-
-  <div id="step2" class="step fade">
-    Multiply your number by <strong>2</strong>.
-    <br>
-    <button onclick="next(3)">Continue</button>
-  </div>
-
-  <div id="step3" class="step fade">
-    Now add <strong>10</strong> to the result.
-    <br>
-    <button onclick="next(4)">Continue</button>
-  </div>
-
-  <div id="step4" class="step fade">
-    Divide the total by <strong>2</strong>.
-    <br>
-    <button onclick="next(5)">Continue</button>
-  </div>
-
-  <div id="step5" class="step fade">
-    Subtract the number you first thought of.
-    <br>
-    <button onclick="reveal()">Reveal</button>
-  </div>
-
-  <div id="result" class="step reveal fade"></div>
 </div>
 
 <script>
   const K = 10;
+  let currentLang = 'en'; // 'en' or 'ta'
+  let currentStep = 1;
+  
+  // Translations
+  const translations = {
+    en: {
+      title: "MindOracle",
+      subtitle: "\"Something is watching your thoughts...\"",
+      step1: "Think of a number between <strong>1 and 10</strong>. Hold it quietly in your mind.",
+      step2: "Multiply your number by <strong>2</strong>.",
+      step3: "Now add <strong>10</strong> to the result.",
+      step4: "Divide the total by <strong>2</strong>.",
+      step5: "Subtract the number you first thought of.",
+      reveal: "Reveal",
+      result: "The number in your mind is... ",
+      continue: "Continue"
+    },
+    ta: {
+      title: "மைண்ட் ஆரக்கிள்",
+      subtitle: "\"உங்கள் எண்ணங்களை யாரோ பார்க்கிறார்கள்...\"",
+      step1: "<strong>1 முதல் 10</strong> வரை ஒரு எண்ணை நினையுங்கள். அதை மனதில் மென்மையாக வைத்திருங்கள்.",
+      step2: "உங்கள் எண்ணை <strong>2</strong> ஆல் பெருக்கவும்.",
+      step3: "இப்போது முடிவைக்கு <strong>10</strong> சேர்க்கவும்.",
+      step4: "மொத்தத்தை <strong>2</strong> ஆல் வகுக்கவும்.",
+      step5: "நீங்கள் முதலில் நினைத்த எண்ணை கழிக்கவும்.",
+      reveal: "வெளிப்படுத்து",
+      result: "உங்கள் மனதில் உள்ள எண்... ",
+      continue: "தொடர்க"
+    }
+  };
+
+  // Initialize particles
+  const canvas = document.getElementById('particles-canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const particles = [];
+  const particleCount = 100;
+
+  class Particle {
+    constructor() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.size = Math.random() * 2 + 0.5;
+      this.speedX = Math.random() * 0.5 - 0.25;
+      this.speedY = Math.random() * 0.5 - 0.25;
+      this.opacity = Math.random() * 0.5 + 0.2;
+      this.color = Math.random() > 0.5 ? '#9c27b0' : '#e91e63';
+    }
+
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+
+      if (this.x > canvas.width) this.x = 0;
+      else if (this.x < 0) this.x = canvas.width;
+
+      if (this.y > canvas.height) this.y = 0;
+      else if (this.y < 0) this.y = canvas.height;
+    }
+
+    draw() {
+      ctx.fillStyle = this.color;
+      ctx.globalAlpha = this.opacity;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.globalAlpha = 1;
+    }
+  }
+
+  function initParticles() {
+    for (let i = 0; i < particleCount; i++) {
+      particles.push(new Particle());
+    }
+  }
+
+  function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    for (let i = 0; i < particles.length; i++) {
+      particles[i].update();
+      particles[i].draw();
+    }
+    
+    requestAnimationFrame(animateParticles);
+  }
+
+  // Language switching function
+  function toggleLanguage() {
+    currentLang = currentLang === 'en' ? 'ta' : 'en';
+    updateLanguage();
+  }
+
+  function updateLanguage() {
+    const t = translations[currentLang];
+    
+    document.getElementById('title').textContent = t.title;
+    document.getElementById('subtitle').textContent = t.subtitle;
+    document.getElementById('step1-text').innerHTML = t.step1;
+    document.getElementById('step2-text').innerHTML = t.step2;
+    document.getElementById('step3-text').innerHTML = t.step3;
+    document.getElementById('step4-text').innerHTML = t.step4;
+    document.getElementById('step5-text').innerHTML = t.step5;
+    document.getElementById('step1-btn').textContent = t.continue;
+    document.getElementById('step2-btn').textContent = t.continue;
+    document.getElementById('step3-btn').textContent = t.continue;
+    document.getElementById('step4-btn').textContent = t.continue;
+    document.getElementById('reveal-btn').textContent = t.reveal;
+    
+    // Update result if it's visible
+    const resultElement = document.getElementById('result');
+    if (resultElement.style.display === 'block') {
+      const finalAnswer = K / 2;
+      resultElement.innerHTML = t.result + finalAnswer;
+    }
+    
+    // Add Tamil font class if Tamil is selected
+    if (currentLang === 'ta') {
+      document.body.classList.add('tamil');
+    } else {
+      document.body.classList.remove('tamil');
+    }
+  }
 
   function next(step) {
+    currentStep = step;
     document.querySelectorAll(".step").forEach(s => s.style.display = "none");
     document.getElementById("step" + step).style.display = "block";
+    
+    // Update language for the new step
+    updateLanguage();
   }
 
   function reveal() {
     document.querySelectorAll(".step").forEach(s => s.style.display = "none");
     const finalAnswer = K / 2;
     const res = document.getElementById("result");
-    res.textContent = "The number in your mind is... " + finalAnswer;
+    const t = translations[currentLang];
+    res.innerHTML = t.result + finalAnswer;
     res.style.display = "block";
   }
+
+  // Initialize particles on page load
+  window.addEventListener('load', () => {
+    initParticles();
+    animateParticles();
+  });
+
+  // Resize canvas on window resize
+  window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
 </script>
 
 </body>
 </html>
-
